@@ -21,11 +21,11 @@ ipcMain.on('enable-device', (event, arg) => {
 
 require('electron-reload')('.')
 
-// Keep a global reference of the window object, if you don't, t111111111111111111111111111111111111he window will
+// Keep a global reference of the window object, if you don't,  window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
-function createWindow () {11111111111111111111111111111111111111
+function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
