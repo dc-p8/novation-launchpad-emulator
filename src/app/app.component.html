@@ -1,10 +1,11 @@
-
+<div>Nom du périphérique virtuel : {{devicename}}</div>
+<!-- 
 
 <form (ngSubmit)="onSubmit()">
 <label for="devicename">Nom du périphérique virtuel : </label>
 <input type="text" id="devicename" name="test" [(ngModel)]="devicename">
 <input type="submit" value="Créer">
-</form>
+</form> -->
 
 <!-- <label for="device_selection">Choix du périphérique : </label>
 
@@ -13,7 +14,9 @@
 </select> -->
 
 <div class="grid" *ngIf="connected">
-        <div class="button" *ngFor="let bt of array(); let i = index" (click)="onClick(i)">
-            <div class="color" #bt></div>
+        <div class="button" *ngFor="let bt of buttons_colors; let i = index" (click)="onClick(i)">
+            <div  [ngClass]="['color', 'intensity-'+bt.intensity]" [CustomColor]=bt.color></div>
         </div>
 </div>
+<input type="text" #n>
+<button (click)="Test(n.value)">Test</button>

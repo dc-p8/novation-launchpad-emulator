@@ -18,11 +18,25 @@ form > * {
         
 }
 .color{
+    --color:rgba(255,255,100,1);
     width: 100%;
     height: 100%;
-background: radial-gradient(circle, rgba(255,255,100,1) 0%, rgba(255,255,0,1) 10%, rgba(255,255,0,0) 50%);
+background: radial-gradient(circle, var(--color) 0%, var(--color) 10%, transparent 50%);
 }
 
+.intensity-0
+{
+    background-color: transparent;
+}
+.intensity-1{
+    background: radial-gradient(circle, var(--color) 0%, var(--color) 10%, transparent 50%);
+}
+.intensity-2{
+    background: radial-gradient(circle, var(--color) 0%, var(--color) 10%, transparent 50%);
+}
+.intensity-3{
+    background: radial-gradient(circle, var(--color) 0%, var(--color) 10%, transparent 120%);
+}
 
 .grid{
     border-radius: 5%;

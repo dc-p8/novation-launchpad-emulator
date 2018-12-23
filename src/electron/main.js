@@ -1,25 +1,65 @@
-
+//[0x90, 0x70, 0b000011]
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, ipcMain} = require('electron')
 
 const midi = require('midi')
 
-var input = null;
-var output = null;
+var _input = null;
+var _output = null;
+
+function findDeviceName(deviceName){
+  let input = new midi.input();
+  let output = new midi.output();
+  let checkDeviceFree = (device => {
+    let devices = [];
+    for(let i = 0; i < input.getPortCount(); ++i){
+      devices.push(input.getPortName(i));
+    }
+    for(let i = 0; i < output.getPortCount(); ++i){
+      devices.push(output.getPortName(i));
+    }
+    console.log('devices', devices)
+    return (devices.find((d) =>{ return (d == device)}) == null);
+  });
+  let index = 0;
+  deviceName = `${deviceName}-${index}`;
+  while(!checkDeviceFree(deviceName)){
+    console.log(deviceName);
+    deviceName = `${deviceName}-${++index}`;
+  }
+  return deviceName;
+}
 
 ipcMain.on('enable-device', (event, arg) => {
-  if(input != null)
-    input.closePort();
-  if(output != null)
-    output.closePort();
-  input = new midi.input();
-  output = new midi.output();
-  input.openVirtualPort(arg);  
-  output.openVirtualPort(arg);
+  //deviceName = findDeviceName(arg);
+  if(_input == null && _output == null)
+  {
+    _input = new midi.input();
+    _output = new midi.output();
+    _input.on('message', (deltaTime, data) => {
+      event.sender.send('fake-input-message', data)
+    });
+  
+    _input.openVirtualPort(arg);  
+    _output.openVirtualPort(arg);
+  }
+  else{
+    console.log('already exist')
+  }
+  // if(_input != null)
+  //   _input.closePort();
+  // if(_output != null)
+  //   _output.closePort();
+
+
+
+  
+
+
 });
 
 
-require('electron-reload')('.')
+
 
 // Keep a global reference of the window object, if you don't,  window will
 // be closed automatically when the JavaScript object is garbage collected.
