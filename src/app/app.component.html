@@ -1,15 +1,22 @@
-
+<div>Nom du périphérique virtuel : {{devicename}}</div>
+<!-- 
 
 <form (ngSubmit)="onSubmit()">
 <label for="devicename">Nom du périphérique virtuel : </label>
 <input type="text" id="devicename" name="test" [(ngModel)]="devicename">
 <input type="submit" value="Créer">
-</form>
-<label for="device_selection">Choix du périphérique : </label>
-<select (input)="select($event)">
-    <option id="device_selection" *ngFor="let device of available_devices | keyvalue" [value]="device.key">{{device.key}}</option>
-</select>
+</form> -->
 
-<div class="grid">
-    <div class="button" *ngFor="let bt of array()"></div>
+<!-- <label for="device_selection">Choix du périphérique : </label>
+
+<select ngModel (ngModelChange)="select($event)" name="data">
+    <option *ngFor="let device of available_devices" [ngValue]="device">{{device.name}}</option>
+</select> -->
+
+<div class="grid" *ngIf="connected">
+        <div class="button" *ngFor="let bt of buttons_colors; let i = index" (click)="onClick(i)">
+            <div  [ngClass]="['color', 'intensity-'+bt.intensity]" [CustomColor]=bt.color></div>
+        </div>
 </div>
+<input type="text" #n>
+<button (click)="Test(n.value)">Test</button>

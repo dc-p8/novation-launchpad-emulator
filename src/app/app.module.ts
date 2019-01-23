@@ -7,10 +7,12 @@ import { AppComponent } from './app.component';
 import {FormsModule} from '@angular/forms';
 
 import {NgxElectronModule} from 'ngx-electron';
+import { CustomColorDirective } from './CustomColorDirective';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CustomColorDirective
   ],
   imports: [
     BrowserModule,
