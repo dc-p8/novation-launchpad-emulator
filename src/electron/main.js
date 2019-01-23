@@ -42,13 +42,6 @@ ipcMain.on('enable-device', (event, arg) => {
   
     _input.openVirtualPort(arg);  
     _output.openVirtualPort(arg);
-
-    
-    __input = new midi.input();
-    __input.openVirtualPort("testi");  
-    __output = new midi.output();
-    __output.openVirtualPort("testo");
-    
   }
   else{
     console.log('already exist')
