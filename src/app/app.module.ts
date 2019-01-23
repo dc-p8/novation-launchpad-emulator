@@ -7,13 +7,11 @@ import { AppComponent } from './app.component';
 import {FormsModule} from '@angular/forms';
 
 import {NgxElectronModule} from 'ngx-electron';
-import { LaunchpadButtonComponent } from './launchpad-button/launchpad-button.component';
 import { CustomColorDirective } from './CustomColorDirective';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LaunchpadButtonComponent,
     CustomColorDirective
   ],
   imports: [

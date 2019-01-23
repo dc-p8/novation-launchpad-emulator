@@ -24,8 +24,7 @@ const note_on = 0x90;
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-	launchpad:WebMidi.MIDIOutput = null;
-	state_buttons = []
+	//launchpad:WebMidi.MIDIOutput = null;
 	@ViewChildren('.button') bts:QueryList<any>;
 	
 	title = 'launchmad-emlator';
@@ -119,6 +118,13 @@ export class AppComponent {
 		return [Math.floor(x), Math.floor(y)];
 		
 	}
+
+	clearBoard(){
+		this.buttons_colors.forEach((bt) => {
+			bt.color = 'transparent';
+			bt.intensity = '0';
+		});
+	}
 	
     processInput(e:Uint8Array){
 		if(e[0] == note_on)
@@ -130,6 +136,10 @@ export class AppComponent {
 			bt.color = color;
 			bt.intensity = intensity;
 			this.cd.detectChanges();
+		}
+		if(e[0] == channel1 && e[1] == 0 && e[2] == 0)
+		{
+			this.clearBoard();
 		}
 		/*
 		if(e.length != 3)
@@ -149,6 +159,7 @@ export class AppComponent {
 		*/
 	}
 
+	/*
 	async Test(n){
 		console.log('buttons', this.buttons_colors);
 		console.log('n', n);
@@ -190,10 +201,8 @@ export class AppComponent {
 		send([0x90, 0x76, 0b010000])
 
 		send([0x90, 0x78, 0b010001])
-
-		
-		
 	}
+	*/
 	ngOnInit() {
 		this._electronService.ipcRenderer.send('enable-device', this.devicename);
 		this.cd.detectChanges();
@@ -207,7 +216,7 @@ export class AppComponent {
 			let updateDevices = () => {
 
 				//TODO:Supprimer ça
-				this.launchpad = midi.outputs.get('C2523F6B29E13D52D5111FEE04C5543EA99B744695D72158F7AEA1BDFF6EEAEB');
+				//this.launchpad = midi.outputs.get('C2523F6B29E13D52D5111FEE04C5543EA99B744695D72158F7AEA1BDFF6EEAEB');
 
 				console.log('update');
 				let inputs = Array.from(midi.inputs.values());
@@ -227,10 +236,10 @@ export class AppComponent {
 					console.log('ok');
 					this.input = input;
 					this.output = output;
-					
 					this.input.onmidimessage = (e) => {
 						//this.output.send(e.data);
 					}
+					
 				}
 					
 				else
